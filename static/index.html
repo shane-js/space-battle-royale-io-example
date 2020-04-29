@@ -1,0 +1,165 @@
+<!doctype html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="./bootstrap.min.css">
+  <script src="./jquery-3.3.1.min.js"></script>
+  <script src="./bootstrap.min.js"></script>
+  <script src="./bundle.js"></script>
+  <style>
+   body {
+     margin: 0;
+     background-color: black;
+     overflow: hidden;
+     color: white;
+     font-size: 16px;
+     font-family: Verdana;
+   }
+   #roundRecapContainer{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100%;
+     position: absolute;
+     width: 100%;
+   }
+   #roundRecapDiv{
+     position: absolute;
+     text-align: center;
+     font-size: 3em;
+     background-color: rgba(255,255,255,0.5);
+     padding: 30px;
+     display: flex;
+   }
+   .row{
+     min-height:30px;
+   }
+   #overlay {
+     position: absolute;
+   }
+   #overlay ul {
+     list-style: none;
+     padding-left: 0;
+   }
+   #overlay a {
+     color: #2ecc71;
+   }
+   .roundInfoDiv {
+     margin-top:10px;
+     background:rgba(255,255,255,0.5);
+     padding: 5px;
+     max-height: 100%;
+     height: 100%;
+     border-radius:8px;
+     -moz-border-radius:8px;
+     -webkit-border-radius:8px;
+     -webkit-box-shadow:0px 0px 15px 0px #ffffff ;
+     -moz-box-shadow:0px 0px 15px 0px #ffffff ;
+     box-shadow:0px 0px 15px 0px #ffffff ;
+   }
+   .muted {
+     color: #95a5a6;
+   }
+   .primary-shadow-text{
+     text-shadow: 3px 0px 8px rgba(234,48,69, 1);
+   }
+   kbd {
+    -webkit-border-radius:3px;
+    -webkit-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+    background-color:#f7f7f7;
+    border:1px solid #ccc;
+    border-radius:3px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+    color:#333;
+    display:inline-block;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    line-height:1.4;
+    margin:0 .1em;
+    padding:.1em .6em;
+    text-shadow:0 1px 0 #fff;
+   }
+  </style>
+</head>
+<body style="background-image: url('./img/spaceBackground.png');background-repeat: no-repeat;background-size: cover;">
+  <div id="roundRecapContainer">
+      <div id="roundRecapDiv">
+        <span id="roundRecapTitleDisplayText" class="primary-shadow-text"></span>
+      </div>
+  </div>
+  <div id="overlay" class="container-fluid">
+    <div class="row">
+      <div class="col-2 offset-5 roundInfoDiv">
+        <div class="row align-self-center">
+          <div class="col-12 align-self-center" style="text-align: center;">
+            <span id="roleDisplayText" class="primary-shadow-text"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-2 offset-2 roundInfoDiv">
+        <div class="row">
+          <div class="col-12 align-self-center" style="text-align: center;">
+            <span id="roundStateDescDisplayText" class="primary-shadow-text"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2 align-self-center float-right" style="padding-right:0px;">
+            <img id="clockIcon" style="width:100%;" src="data:image/png;base64,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
+">
+          </div>
+          <div class="col-2 align-self-center float-left" style="padding-left:0px; border-right: 5px solid white;">
+            <span id="timeDisplayText" class="primary-shadow-text"></span>
+          </div>
+          <div class="col-8 align-self-center">
+            <span id="livingPlayersDisplayText" class="primary-shadow-text"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="col-3">
+        <li>
+          <b>Move</b> with
+          <kbd>&larr;</kbd>
+          <kbd>&uarr;</kbd>
+          <kbd>&darr;</kbd>
+          <kbd>&rarr;</kbd>
+        </li>
+        <li>
+          <b>Shoot</b> with <kbd>F</kbd>
+        </li>
+        <li>
+          <b>Click</b> to cheat
+        </li>
+        <hr>
+        <li>
+          <ul>
+            <li>
+              Angle: <span id="player-angle">--</span>
+              (<span id="body-angle">--</span>)
+            </li>
+            <li>
+              Position: <span id="player-pos">--</span>
+            </li>
+            <li>
+              Speed: <span id="player-speed">--</span>
+            </li>
+            <li>
+              Energy:
+              <span id="player-cur-energy">--</span>
+              /
+              <span id="player-max-energy">--</span>
+            </li>
+            <li>
+              FPS: <span id="fps">--</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- Quick way to preload images that are otherwise lazy-loaded -->
+  <img src="./img/bombs.png" style="display: none">
+  <img src="./img/empburst.gif" style="display: none">
+  <img src="./img/explode1.png" style="display: none">
+</body>
